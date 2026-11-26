@@ -26,7 +26,7 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 - Free cloud compute assessment and checkpoint requirements in docs/CLOUD-COMPUTE.md.
 - Generic SharedRecurrentBlock primitive in src/loop_slm/recurrent.py.
 - RecurrentLlamaForCausalLM adapter in src/loop_slm/llama.py, pinned to Transformers 4.57.1 internals.
-- GPU smoke-test script in scripts/cloud_smoke_test.py; it performs one optimizer step for baseline and Loop-2 and writes a hardware report.
+- GPU smoke-test script in scripts/cloud_smoke_test.py and preconfigured Kaggle notebook in notebooks/kaggle_gpu_smoke_test.ipynb; they perform one optimizer step for baseline and Loop-2 and write a hardware report.
 - Atomic checkpoint save/restore in src/loop_slm/checkpointing.py, including model, optimizer, optional scheduler/scaler, sampler metadata, and Python/NumPy/Torch RNG state.
 - Unit tests for loop-count validation, weight reuse, gradients, native loop-1 logit parity, padding-mask parity, and checkpoint/RNG restoration.
 - GitHub Actions CPU test workflow.
