@@ -30,7 +30,7 @@ See [the research plan](docs/RESEARCH-PLAN.md), [architecture decisions](docs/AR
 
 Initial local development target: RTX 3050 Laptop GPU with 4 GB VRAM and 16 GB system RAM. Re-measure actual available resources before training.
 
-Kaggle Notebooks are the primary free cloud GPU target; Colab Free is a secondary interactive option. See [cloud compute strategy](docs/CLOUD-COMPUTE.md). All cloud runs must be checkpointable and resumable. A one-step [Kaggle GPU smoke test](docs/CLOUD-COMPUTE.md) is provided.
+Kaggle Notebooks are the primary free cloud GPU target; Colab Free is a secondary interactive option. See [cloud compute strategy](docs/CLOUD-COMPUTE.md). All cloud runs must be checkpointable and resumable. A preconfigured [Kaggle GPU smoke-test notebook](notebooks/kaggle_gpu_smoke_test.ipynb) is provided; select GPU once and use Run All.
 
 ## Development
 
@@ -52,7 +52,7 @@ Implemented:
 - Research plan, hypotheses, experimental controls, and decision gates.
 - Initial full-decoder-stack recurrent architecture decision.
 - Initial experiment configuration.
-- Cloud compute assessment and Kaggle smoke-test script.
+- Cloud compute assessment, Kaggle smoke-test script, and preconfigured Kaggle notebook.
 - Dataset governance registry.
 - Generic shared recurrent block primitive and unit tests.
 - Atomic checkpoint save/restore with optimizer and RNG state.
