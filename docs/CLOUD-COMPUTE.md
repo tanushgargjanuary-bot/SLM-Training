@@ -60,18 +60,9 @@ Start with **Kaggle**. It offers the most predictable free GPU allowance among t
 
 ## First Kaggle smoke test
 
-1. Create a Kaggle Notebook and enable a GPU accelerator.
-2. Clone this repository in the first cell:
-   ```bash
-   !git clone https://github.com/tanushgargjanuary-bot/SLM-Training.git
-   %cd SLM-Training
-   !python -m pip install -e .
-   ```
-3. Run the tiny baseline and Loop-2 forward/backward/optimizer checks:
-   ```bash
-   !python scripts/cloud_smoke_test.py --sequence-length 64 --loops 1 2 --output /kaggle/working/smoke-report.json
-   ```
-4. Download or copy the JSON report from /kaggle/working before the session ends.
+Use the preconfigured [Kaggle GPU smoke-test notebook](../notebooks/kaggle_gpu_smoke_test.ipynb). Import it into Kaggle, select **GPU** once in Notebook options, and choose **Run All**. The notebook clones/updates this repository, installs the pinned dependencies, runs baseline and Loop-2, and writes `/kaggle/working/smoke-report.json`.
+
+Download the JSON report from the notebook output after completion. No credentials or GitHub write permissions are needed.
 
 The script uses synthetic token IDs, downloads the pinned base checkpoint, performs one optimizer step for each variant, and records GPU memory and step time. It does not save trained weights and is not a research benchmark. Do not launch the full experiment matrix until this smoke test is inspected.
 
