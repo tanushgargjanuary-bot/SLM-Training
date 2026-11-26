@@ -14,7 +14,7 @@ How much capability can a small pretrained language model gain from recurrent/sh
 - Embeddings, final normalization, and language-model head execute once.
 - Adaptive halting and teacher distillation are deferred until fixed-depth comparisons are reliable.
 
-See [the research plan](docs/RESEARCH-PLAN.md), [architecture decisions](docs/ARCHITECTURE-DECISIONS.md), and [experiment matrix](configs/experiments.yaml).
+See [the research plan](docs/RESEARCH-PLAN.md), [architecture decisions](docs/ARCHITECTURE-DECISIONS.md), [experiment matrix](configs/experiments.yaml), and [dataset registry](docs/DATASETS.md).
 
 ## Research guardrails
 
@@ -30,7 +30,7 @@ See [the research plan](docs/RESEARCH-PLAN.md), [architecture decisions](docs/AR
 
 Initial local development target: RTX 3050 Laptop GPU with 4 GB VRAM and 16 GB system RAM. Re-measure actual available resources before training.
 
-Kaggle Notebooks are the primary free cloud GPU target; Colab Free is a secondary interactive option. See [cloud compute strategy](docs/CLOUD-COMPUTE.md). All cloud runs must be checkpointable and resumable.
+Kaggle Notebooks are the primary free cloud GPU target; Colab Free is a secondary interactive option. See [cloud compute strategy](docs/CLOUD-COMPUTE.md). All cloud runs must be checkpointable and resumable. A one-step [Kaggle GPU smoke test](docs/CLOUD-COMPUTE.md) is provided.
 
 ## Development
 
@@ -52,15 +52,17 @@ Implemented:
 - Research plan, hypotheses, experimental controls, and decision gates.
 - Initial full-decoder-stack recurrent architecture decision.
 - Initial experiment configuration.
-- Cloud compute assessment.
+- Cloud compute assessment and Kaggle smoke-test script.
+- Dataset governance registry.
 - Generic shared recurrent block primitive and unit tests.
 - Llama recurrent adapter with native-logit parity test for loop count 1, recurrent gradient test, and padding-mask parity test.
 - CPU GitHub Actions test workflow.
 
 Not yet implemented or validated:
 - Pinned model/tokenizer revision.
-- Training/evaluation pipeline and resumable checkpoints.
+- Full training/evaluation pipeline and resumable checkpoints.
 - Autoregressive generation/KV-cache support.
+- Actual GPU smoke-test result.
 - Curated, license-reviewed dataset.
 - Evaluation harness and benchmark results.
 - Cloud execution.
