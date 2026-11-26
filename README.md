@@ -44,7 +44,7 @@ pytest
 ruff check .
 ```
 
-The package currently contains a generic shared recurrent block primitive. It is not yet a Transformers/Llama model adapter.
+The package contains a generic shared recurrent block primitive and a Transformers 4.57.1 Llama adapter. The adapter is a research forward-pass implementation only: KV cache and generation are deliberately disabled.
 
 ## Current repository status
 
@@ -54,17 +54,18 @@ Implemented:
 - Initial experiment configuration.
 - Cloud compute assessment.
 - Generic shared recurrent block primitive and unit tests.
+- Llama recurrent adapter with native-logit parity test for loop count 1, recurrent gradient test, and padding-mask parity test.
 - CPU GitHub Actions test workflow.
 
 Not yet implemented or validated:
 - Pinned model/tokenizer revision.
-- Transformers/Llama adapter.
-- Baseline and recurrent training pipeline.
+- Training/evaluation pipeline and resumable checkpoints.
+- Autoregressive generation/KV-cache support.
 - Curated, license-reviewed dataset.
 - Evaluation harness and benchmark results.
 - Cloud execution.
 
-Do not treat this repository as a working training framework until the model adapter, training pipeline, and tests exist.
+Do not treat this repository as a complete training framework until the baseline/recurrent training pipeline, resumable checkpointing, and cloud smoke tests exist.
 
 ## Engineering workflow
 
