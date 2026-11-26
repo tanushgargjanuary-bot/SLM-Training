@@ -27,7 +27,8 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 - Generic SharedRecurrentBlock primitive in src/loop_slm/recurrent.py.
 - RecurrentLlamaForCausalLM adapter in src/loop_slm/llama.py, pinned to Transformers 4.57.1 internals.
 - GPU smoke-test script in scripts/cloud_smoke_test.py; it performs one optimizer step for baseline and Loop-2 and writes a hardware report.
-- Unit tests for loop-count validation, weight reuse, gradients, native loop-1 logit parity, and padding-mask parity.
+- Atomic checkpoint save/restore in src/loop_slm/checkpointing.py, including model, optimizer, optional scheduler/scaler, sampler metadata, and Python/NumPy/Torch RNG state.
+- Unit tests for loop-count validation, weight reuse, gradients, native loop-1 logit parity, padding-mask parity, and checkpoint/RNG restoration.
 - GitHub Actions CPU test workflow.
 
 ## Not implemented / not verified
@@ -49,9 +50,9 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 
 1. Verify the CI run for the new Llama adapter and fix any failures.
 3. Run scripts/cloud_smoke_test.py on Kaggle; inspect baseline and Loop-2 memory/step-time results.
-4. Add deterministic checkpoint save/load tests.
-5. Select a small, license-reviewed training corpus and held-out validation corpus.
-6. Implement a resumable training loop with atomic checkpoints and append-only metrics.
+4. Select a small, license-reviewed training corpus and held-out validation corpus.
+5. Implement the baseline/recurrent training loop with append-only metrics and tested checkpoint resume.
+6. Run a short controlled pilot on Kaggle and inspect loss, memory, and throughput.
 
 ## Recovery and safety
 
