@@ -6,14 +6,15 @@ A local-first research project investigating whether recurrent computation and s
 
 How much capability can a small pretrained language model gain from recurrent/shared-weight computation, where do additional iterations saturate, and do any gains survive comparisons at controlled training and inference compute?
 
-## Initial objectives
+## Initial research direction
 
-1. Establish a reproducible conventional-model baseline.
-2. Convert a compatible pretrained small decoder-only model into a recurrent/shared-weight variant.
-3. Verify that the converted model trains correctly and preserves checkpoint/generation behaviour.
-4. Compare fixed recurrent depths and measure diminishing returns.
-5. Explore gated updates and adaptive computation only after fixed-depth experiments are reliable.
-6. Investigate reasoning-focused fine-tuning and teacher distillation separately from architectural gains.
+- Base checkpoint candidate: HuggingFaceTB/SmolLM2-135M.
+- Initial recurrent unit: the complete 30-layer decoder stack, repeatedly applied with shared parameters.
+- Fixed depths: 1, 2, 3, 4, 6, and 8 passes.
+- Embeddings, final normalization, and language-model head execute once.
+- Adaptive halting and teacher distillation are deferred until fixed-depth comparisons are reliable.
+
+See [the research plan](docs/RESEARCH-PLAN.md), [architecture decisions](docs/ARCHITECTURE-DECISIONS.md), and [experiment matrix](configs/experiments.yaml).
 
 ## Research guardrails
 
@@ -25,25 +26,45 @@ How much capability can a small pretrained language model gain from recurrent/sh
 - Preserve negative results. Do not claim frontier-model equivalence from narrow benchmark wins.
 - Verify dataset provenance and licenses before training.
 
-## Initial experimental matrix
+## Hardware and cloud compute
 
-| Variant | Description | Status |
-|---|---|---|
-| Baseline | Original pretrained model | Planned |
-| Loop-2 | Shared block executed twice | Planned |
-| Loop-3 | Shared block executed three times | Planned |
-| Loop-4 | Shared block executed four times | Planned |
-| Loop-6 | Shared block executed six times | Planned |
-| Loop-8 | Shared block executed eight times | Planned |
-| Adaptive | Learned halting / variable recurrent depth | Later |
+Initial local development target: RTX 3050 Laptop GPU with 4 GB VRAM and 16 GB system RAM. Re-measure actual available resources before training.
 
-## Hardware target
+Kaggle Notebooks are the primary free cloud GPU target; Colab Free is a secondary interactive option. See [cloud compute strategy](docs/CLOUD-COMPUTE.md). All cloud runs must be checkpointable and resumable.
 
-Initial local development target: RTX 3050 Laptop GPU with 4 GB VRAM and 16 GB system RAM. Re-measure actual available resources before training. Start with short-sequence smoke tests and small checkpoints; do not assume full fine-tuning will fit.
+## Development
+
+Python 3.10+ is required.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e ".[dev]"
+pytest
+ruff check .
+```
+
+The package currently contains a generic shared recurrent block primitive. It is not yet a Transformers/Llama model adapter.
 
 ## Current repository status
 
-This repository is a research scaffold. It does not yet contain a validated recurrent model implementation, training pipeline, curated dataset, or benchmark results.
+Implemented:
+- Research plan, hypotheses, experimental controls, and decision gates.
+- Initial full-decoder-stack recurrent architecture decision.
+- Initial experiment configuration.
+- Cloud compute assessment.
+- Generic shared recurrent block primitive and unit tests.
+- CPU GitHub Actions test workflow.
+
+Not yet implemented or validated:
+- Pinned model/tokenizer revision.
+- Transformers/Llama adapter.
+- Baseline and recurrent training pipeline.
+- Curated, license-reviewed dataset.
+- Evaluation harness and benchmark results.
+- Cloud execution.
+
+Do not treat this repository as a working training framework until the model adapter, training pipeline, and tests exist.
 
 ## Engineering workflow
 
@@ -51,14 +72,4 @@ This repository is a research scaffold. It does not yet contain a validated recu
 - Follow the [Vibe Coding Playbook](VIBE-CODING-PLAYBOOK.md).
 - Record experiment configurations and results in versioned files.
 - Keep raw datasets, model weights, caches, and credentials out of Git.
-- Update the research plan and continuity records when implementation begins.
-
-## Planned documentation
-
-- Architecture conversion and layer-mapping design.
-- Dataset registry with provenance and licenses.
-- Reproducible training configurations.
-- Evaluation protocol and benchmark results.
-- Hardware measurements and run logs.
-
-Do not treat this repository as a working training framework until the relevant implementation and tests exist.
+- Update [project state](docs/PROJECT-STATE.md) after substantial work.
