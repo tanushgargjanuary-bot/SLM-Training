@@ -26,6 +26,7 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 - Free cloud compute assessment and checkpoint requirements in docs/CLOUD-COMPUTE.md.
 - Generic SharedRecurrentBlock primitive in src/loop_slm/recurrent.py.
 - RecurrentLlamaForCausalLM adapter in src/loop_slm/llama.py, pinned to Transformers 4.57.1 internals.
+- GPU smoke-test script in scripts/cloud_smoke_test.py; it performs one optimizer step for baseline and Loop-2 and writes a hardware report.
 - Unit tests for loop-count validation, weight reuse, gradients, native loop-1 logit parity, and padding-mask parity.
 - GitHub Actions CPU test workflow.
 
@@ -36,7 +37,7 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 - No training/evaluation loop exists.
 - No recurrent autoregressive KV cache or generate() integration exists.
 - No evaluation harness exists.
-- No cloud notebook has been run.
+- Cloud smoke-test script has not been run on Kaggle or any GPU.
 - No training or benchmark results exist.
 
 ## Validation
@@ -49,10 +50,10 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 
 1. Verify the new CI run and fix any failures.
 2. Verify CI for the new Llama adapter and fix any failures.
-3. Add deterministic checkpoint save/load tests and measure memory/step time on a tiny model.
-4. Select a small, license-reviewed training corpus and held-out validation corpus.
-5. Implement a resumable training loop with atomic checkpoints and append-only metrics.
-6. Run the baseline smoke test on Kaggle before launching any recurrent run.
+3. Run scripts/cloud_smoke_test.py on Kaggle; inspect baseline and Loop-2 memory/step-time results.
+4. Add deterministic checkpoint save/load tests.
+5. Select a small, license-reviewed training corpus and held-out validation corpus.
+6. Implement a resumable training loop with atomic checkpoints and append-only metrics.
 
 ## Recovery and safety
 
