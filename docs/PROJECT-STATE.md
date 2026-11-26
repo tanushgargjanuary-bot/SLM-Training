@@ -49,10 +49,10 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 ## Next actions
 
 1. Verify the CI run for the new Llama adapter and fix any failures.
-3. Run scripts/cloud_smoke_test.py on Kaggle; inspect baseline and Loop-2 memory/step-time results.
-4. Select a small, license-reviewed training corpus and held-out validation corpus.
-5. Implement the baseline/recurrent training loop with append-only metrics and tested checkpoint resume.
-6. Run a short controlled pilot on Kaggle and inspect loss, memory, and throughput.
+2. Run scripts/cloud_smoke_test.py on Kaggle; inspect baseline and Loop-2 memory/step-time results.
+3. Select a small, license-reviewed training corpus and held-out validation corpus.
+4. Implement the baseline/recurrent training loop with append-only metrics and tested checkpoint resume.
+5. Run a short controlled pilot on Kaggle and inspect loss, memory, and throughput.
 
 ## Recovery and safety
 
