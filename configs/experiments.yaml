@@ -2,8 +2,8 @@ project:
   name: loop-slm
   status: design
   base_model: HuggingFaceTB/SmolLM2-135M
-  model_revision: PINNED_BEFORE_RUN
-  tokenizer_revision: SAME_AS_MODEL
+  model_revision: 93efa2f097d58c2a74874c7e644dbc9b0cee75a2
+  tokenizer_revision: 93efa2f097d58c2a74874c7e644dbc9b0cee75a2
   seed: 42
 
 architecture:
