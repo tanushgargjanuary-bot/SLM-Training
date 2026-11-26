@@ -58,6 +58,23 @@ Official source:
 
 Start with **Kaggle**. It offers the most predictable free GPU allowance among the options checked, although sessions are interruptible and weekly quotas may vary. Use Colab as a backup for interactive debugging. Treat Lightning AI credits as a limited bonus, not the foundation of the project.
 
+## First Kaggle smoke test
+
+1. Create a Kaggle Notebook and enable a GPU accelerator.
+2. Clone this repository in the first cell:
+   ```bash
+   !git clone https://github.com/tanushgargjanuary-bot/SLM-Training.git
+   %cd SLM-Training
+   !python -m pip install -e .
+   ```
+3. Run the tiny baseline and Loop-2 forward/backward/optimizer checks:
+   ```bash
+   !python scripts/cloud_smoke_test.py --sequence-length 64 --loops 1 2 --output /kaggle/working/smoke-report.json
+   ```
+4. Download or copy the JSON report from /kaggle/working before the session ends.
+
+The script uses synthetic token IDs, downloads the pinned base checkpoint, performs one optimizer step for each variant, and records GPU memory and step time. It does not save trained weights and is not a research benchmark. Do not launch the full experiment matrix until this smoke test is inspected.
+
 Do not split a single training run across providers until checkpoints, environment setup, and data versions are reproducible.
 
 ## Required training-run behaviour
