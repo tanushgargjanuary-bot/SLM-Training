@@ -72,7 +72,7 @@ class RecurrentLlamaForCausalLM(nn.Module):
 
         base = self.backbone.model
         inputs_embeds = base.embed_tokens(input_ids)
-        sequence_length = input_ids.shape[1]
+        batch_size, sequence_length = input_ids.shape
         cache_position = torch.arange(sequence_length, device=input_ids.device)
 
         if position_ids is None:
