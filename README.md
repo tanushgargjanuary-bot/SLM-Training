@@ -55,6 +55,7 @@ Implemented:
 - Cloud compute assessment and Kaggle smoke-test script.
 - Dataset governance registry.
 - Generic shared recurrent block primitive and unit tests.
+- Atomic checkpoint save/restore with optimizer and RNG state.
 - Llama recurrent adapter with native-logit parity test for loop count 1, recurrent gradient test, and padding-mask parity test.
 - CPU GitHub Actions test workflow.
 
@@ -63,6 +64,7 @@ Not yet implemented or validated:
 - Full training/evaluation pipeline and resumable checkpoints.
 - Autoregressive generation/KV-cache support.
 - Actual GPU smoke-test result.
+- Full resumable training/evaluation loop.
 - Curated, license-reviewed dataset.
 - Evaluation harness and benchmark results.
 - Cloud execution.
