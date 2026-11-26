@@ -25,15 +25,16 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 - Initial matrix in configs/experiments.yaml.
 - Free cloud compute assessment and checkpoint requirements in docs/CLOUD-COMPUTE.md.
 - Generic SharedRecurrentBlock primitive in src/loop_slm/recurrent.py.
-- Unit tests for loop-count validation, weight reuse, gradients, and output contract.
+- RecurrentLlamaForCausalLM adapter in src/loop_slm/llama.py, pinned to Transformers 4.57.1 internals.
+- Unit tests for loop-count validation, weight reuse, gradients, native loop-1 logit parity, and padding-mask parity.
 - GitHub Actions CPU test workflow.
 
 ## Not implemented / not verified
 
 - Hugging Face model revision and tokenizer revision are not pinned.
 - Dataset has not been selected or license-reviewed.
-- No model-specific Llama adapter exists.
-- No baseline or recurrent training loop exists.
+- No training/evaluation loop exists.
+- No recurrent autoregressive KV cache or generate() integration exists.
 - No evaluation harness exists.
 - No cloud notebook has been run.
 - No training or benchmark results exist.
@@ -47,11 +48,11 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 ## Next actions
 
 1. Verify the new CI run and fix any failures.
-2. Pin the official model and tokenizer revisions; record model license and configuration.
-3. Implement a Transformers-version-pinned Llama adapter that reuses the same 30 decoder layers and matches baseline logits at loop count 1.
-4. Add a deterministic tiny-batch forward/backward/checkpoint smoke test.
-5. Select a small, licensed training corpus and a held-out validation corpus.
-6. Build a resumable training loop and run it on Kaggle only after the smoke test passes.
+2. Verify CI for the new Llama adapter and fix any failures.
+3. Add deterministic checkpoint save/load tests and measure memory/step time on a tiny model.
+4. Select a small, license-reviewed training corpus and held-out validation corpus.
+5. Implement a resumable training loop with atomic checkpoints and append-only metrics.
+6. Run the baseline smoke test on Kaggle before launching any recurrent run.
 
 ## Recovery and safety
 
