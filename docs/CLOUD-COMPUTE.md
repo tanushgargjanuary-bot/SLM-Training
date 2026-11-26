@@ -80,7 +80,7 @@ Do not split a single training run across providers until checkpoints, environme
 ## Required training-run behaviour
 
 Every run must:
-1. Save a checkpoint at a fixed step interval and at the end of each session.
+1. Use the project's atomic checkpoint utilities in loop_slm.checkpointing; save at a fixed step interval and at the end of each session.
 2. Save optimizer, scheduler, RNG, scaler, global step, and sampler state when supported.
 3. Write an append-only JSONL metrics log.
 4. Record Git commit, config hash, model/tokenizer revision, package versions, GPU name, CUDA/PyTorch versions, and actual dataset revision.
