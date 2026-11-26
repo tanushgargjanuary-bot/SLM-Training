@@ -75,3 +75,19 @@ def test_rejects_invalid_inputs() -> None:
     recurrent = RecurrentLlamaForCausalLM(make_tiny_llama(), loop_count=2)
     with pytest.raises(ValueError, match="shape"):
         recurrent(torch.ones(8, dtype=torch.long))
+
+
+
+def test_one_loop_matches_native_with_padding_mask() -> None:
+    torch.manual_seed(31)
+    model = make_tiny_llama().eval()
+    recurrent = RecurrentLlamaForCausalLM(model, loop_count=1).eval()
+    input_ids = torch.randint(3, 97, (2, 12))
+    attention_mask = torch.ones_like(input_ids)
+    attention_mask[0, -3:] = 0
+
+    with torch.no_grad():
+        expected = model(input_ids, attention_mask=attention_mask, use_cache=False).logits
+        actual = recurrent(input_ids, attention_mask=attention_mask).logits
+
+    torch.testing.assert_close(actual, expected, rtol=1e-5, atol=1e-6)
