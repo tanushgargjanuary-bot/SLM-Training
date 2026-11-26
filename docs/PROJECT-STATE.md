@@ -10,7 +10,7 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 
 ## Current decisions
 
-- Initial checkpoint candidate: HuggingFaceTB/SmolLM2-135M.
+- Initial checkpoint: HuggingFaceTB/SmolLM2-135M, pinned to revision 93efa2f097d58c2a74874c7e644dbc9b0cee75a2 (Apache-2.0).
 - Initial recurrent unit: full decoder stack, repeated 1/2/3/4/6/8 times.
 - Embeddings, final normalization, and LM head execute once.
 - Same decoder-layer module instances are reused.
@@ -32,8 +32,7 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 
 ## Not implemented / not verified
 
-- Hugging Face model revision and tokenizer revision are not pinned.
-- Dataset has not been selected or license-reviewed.
+- Dataset has not been selected or license-approved; FineWeb-Edu is only a documented candidate.
 - No training/evaluation loop exists.
 - No recurrent autoregressive KV cache or generate() integration exists.
 - No evaluation harness exists.
@@ -48,8 +47,7 @@ Measure whether recurrent reuse of shared transformer computation improves a sma
 
 ## Next actions
 
-1. Verify the new CI run and fix any failures.
-2. Verify CI for the new Llama adapter and fix any failures.
+1. Verify the CI run for the new Llama adapter and fix any failures.
 3. Run scripts/cloud_smoke_test.py on Kaggle; inspect baseline and Loop-2 memory/step-time results.
 4. Add deterministic checkpoint save/load tests.
 5. Select a small, license-reviewed training corpus and held-out validation corpus.
