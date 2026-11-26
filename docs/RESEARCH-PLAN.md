@@ -21,7 +21,7 @@ Reject or revise each hypothesis when measurements contradict them.
 
 ## 3. Initial model and why
 
-Use HuggingFaceTB/SmolLM2-135M as the initial base checkpoint.
+Use HuggingFaceTB/SmolLM2-135M as the initial base checkpoint. Pin model and tokenizer to revision 93efa2f097d58c2a74874c7e644dbc9b0cee75a2. The official model card declares Apache-2.0 and reports 134.5M parameters and 2T pretraining tokens.
 
 Its published configuration is a decoder-only Llama architecture with 30 layers, hidden size 576, 9 attention heads, 3 key/value heads, intermediate size 1536, and vocabulary size 49,152. Pin an immutable model revision before any run. Record the resolved commit hash, tokenizer revision, Transformers version, and license metadata in each experiment.
 
@@ -118,7 +118,7 @@ Only then consider adaptive halting, gated state updates, teacher distillation, 
 - [x] Initial model candidate selected.
 - [x] First recurrent architecture specified.
 - [x] Controlled experiment matrix defined.
-- [ ] Pin model revision and licenses.
+- [x] Pin base model/tokenizer revision and record model license.
 - [ ] Implement and test recurrent model adapter.
 - [ ] Implement baseline training/evaluation pipeline.
 - [ ] Run smoke tests.
