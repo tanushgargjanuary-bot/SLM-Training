@@ -8,7 +8,7 @@ How much capability can a small pretrained language model gain from recurrent/sh
 
 ## Initial research direction
 
-- Base checkpoint candidate: HuggingFaceTB/SmolLM2-135M.
+- Base checkpoint: HuggingFaceTB/SmolLM2-135M, pinned to revision 93efa2f097d58c2a74874c7e644dbc9b0cee75a2 (Apache-2.0).
 - Initial recurrent unit: the complete 30-layer decoder stack, repeatedly applied with shared parameters.
 - Fixed depths: 1, 2, 3, 4, 6, and 8 passes.
 - Embeddings, final normalization, and language-model head execute once.
@@ -59,7 +59,7 @@ Implemented:
 - CPU GitHub Actions test workflow.
 
 Not yet implemented or validated:
-- Pinned model/tokenizer revision.
+- Dataset has not yet been selected or license-approved.
 - Full training/evaluation pipeline and resumable checkpoints.
 - Autoregressive generation/KV-cache support.
 - Actual GPU smoke-test result.
